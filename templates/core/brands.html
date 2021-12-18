@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+    <div class="content-body">
+
+        <div class="row">
+            <div class="col-xl-4 col-lg-12">
+                <!-- Loop here -->
+                <div class="card">
+                    <div class="card-content">
+
+                        <div id="carousel-area" class="carousel slide" data-ride="carousel">
+
+                            <div class="carousel-inner" role="listbox">
+                                <div class="carousel-item active">
+                                    <img src="{%  static 'images/02.jpg' %}" class="d-block w-100"
+                                         alt="First slide">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Brand Name</h4>
+                            <h6 class="card-subtitle text-muted"><strong>Current Sprint Goal:</strong> </h6>
+                        </div>
+                    </div>
+                    <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
+                       <a style="margin-left: 30%" href="{% url 'BrandDetailView' %}" class="btn btn-info btn-min-width mr-1 mb-1 justify-content-center">GO</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
