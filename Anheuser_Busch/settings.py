@@ -151,6 +151,15 @@ EMAIL_HOST_PASSWORD = 'frczzxdonutxgknf'
 
 DEFAULT_FROM_EMAIL = 'noreply<property.contract.manage@gmail.com>'
 
+ACCOUNT_LOGOUT_ON_GET = True
+
+LOGIN_REDIRECT_URL = 'core:home'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'core:home'
+
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
