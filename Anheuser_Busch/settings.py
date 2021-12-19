@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
 
+    # cron tab
+    'django_crontab',
+
     # custom apps
     'core.apps.CoreConfig',
 ]
@@ -153,6 +156,9 @@ DEFAULT_FROM_EMAIL = 'noreply<property.contract.manage@gmail.com>'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-
 SITE_ID = 1
+
+#cronjobs
+CRONJOBS = [
+    ('00 00 1 1 *', 'core.cron.check_date')
+]

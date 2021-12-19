@@ -8,7 +8,7 @@
 
         <div class="row">
             <div class="col-xl-4 col-lg-12">
-                <!-- Loop here -->
+                {% for brand in brands %}
                 <div class="card">
                     <div class="card-content">
 
@@ -16,21 +16,22 @@
 
                             <div class="carousel-inner" role="listbox">
                                 <div class="carousel-item active">
-                                    <img src="{%  static 'images/02.jpg' %}" class="d-block w-100"
+                                    <img src="{{ brand.logo.url }}" class="d-block w-100"
                                          alt="First slide">
                                 </div>
 
                             </div>
                         </div>
                         <div class="card-body">
-                            <h4 class="card-title">Brand Name</h4>
-                            <h6 class="card-subtitle text-muted"><strong>Current Sprint Goal:</strong> </h6>
+                            <h4 class="card-title">{{ brand.name }}</h4>
+                            <h6 class="card-subtitle text-muted"><strong>Current Sprint Goal: {{ brand.get_current_sub_objective }}</strong> </h6>
                         </div>
                     </div>
                     <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
-                       <a style="margin-left: 30%" href="{% url 'BrandDetailView' %}" class="btn btn-info btn-min-width mr-1 mb-1 justify-content-center">GO</a>
+                       <a style="margin-left: 30%" href="{% url 'core:brand-detail' brand.pk %}" class="btn btn-info btn-min-width mr-1 mb-1 justify-content-center">GO</a>
                     </div>
                 </div>
+                {% endfor %}
             </div>
 
         </div>

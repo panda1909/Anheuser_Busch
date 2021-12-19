@@ -28,13 +28,14 @@
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        {% for obj in obj %}
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
+                                            <td><a href="{% url 'core:brand-detail' obj.pk %}"> {{ obj.name }}</a></td>
+                                            <td>{{ obj.get_current_objective }}</td>
+                                            <td>{{ obj.get_current_objective.completion }} %</td>
 
                                         </tr>
-
+                                        {% endfor %}
 
                                         </tbody>
 
