@@ -11,10 +11,6 @@ import datetime
 # Create your views here.
 
 
-def superuser_test(user):
-    return user.is_superuser
-
-
 @login_required()
 def home(request):
     brands = Brand.objects.all()
@@ -45,10 +41,11 @@ def create_brand(request):
 def view_brand(request, pk):
     obj = get_object_or_404(Brand, id=pk)
     curr = datetime.date.today()
-    quarter = Quarter.objects.get(start_date__lt=curr, end_date__gt=curr)
+    quarter = get_object_or_404(Quarter, start_date__lt=curr, end_date__gt=curr)
     objectives = Objective.objects.filter(Brand=obj, Quarter=quarter)
-    sprints = Sprint.objects.filter(Quarter=quarter)
-    sub_objectives = SubObjective.objects.filter(Objective_fk__in=objectives, Sprint__in=sprints)
+    sub_objectives = SubObjective.objects.filter(Objective_fk__in=objectives)
+    print(sub_objectives)
+    sprints = Sprint.objects.filter(Quarter=quarter, SubObjective__in=sub_objectives)
 
     context = {
         'obj': obj,

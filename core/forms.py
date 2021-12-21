@@ -32,9 +32,8 @@ class SubObjectiveForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'Objective_fk': forms.Select(attrs={'class': 'form-control'}),
-            'Sprint': forms.Select(attrs={'class': 'form-control'}),
             'objective': forms.TextInput(attrs={'class': 'form-control'}),
-            # 'completion': forms.BooleanField(attrs={'class': 'form-control'}),
+            'completion': forms.CheckboxInput(attrs={'class': 'form-control'}),
         }
 
 
@@ -48,4 +47,5 @@ class SprintForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'start_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}, format='%Y-%m-%d'),
             'end_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}, format='%Y-%m-%d'),
+            'SubObjective': forms.Select(attrs={'class': 'form-control'}),
         }

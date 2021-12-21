@@ -153,6 +153,7 @@ DEFAULT_FROM_EMAIL = 'noreply<property.contract.manage@gmail.com>'
 
 ACCOUNT_LOGOUT_ON_GET = True
 
+
 LOGIN_REDIRECT_URL = 'core:home'
 ACCOUNT_LOGOUT_REDIRECT_URL = 'core:home'
 

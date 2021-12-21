@@ -25,9 +25,7 @@ class Brand(models.Model):
     def get_current_sub_objective(self):
         curr = datetime.date.today()
         sprint = Sprint.objects.get(Brand=self, start_date__lt=curr, end_date__gt=curr)
-        sub_objective = SubObjective.objects.filter(Sprint=sprint).first()
-        return sub_objective
-
+        return sprint.SubObjective
 
 
 class Quarter(models.Model):
@@ -38,18 +36,6 @@ class Quarter(models.Model):
 
     def __str__(self):
         return f'{self.name}'
-
-
-class Sprint(models.Model):
-    Quarter = models.ForeignKey(Quarter, on_delete=models.CASCADE, related_name='sprint', null=True, blank=True)
-    Brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='brand_sprint', null=True, blank=True)
-
-    name = models.CharField(max_length=128, null=True, blank=True)
-    start_date = models.DateField(null=True, blank=True)
-    end_date = models.DateField(null=True, blank=True)
-
-    def __str__(self):
-        return f'{self.name} {self.start_date} - {self.end_date} '
 
 
 class Objective(models.Model):
@@ -66,12 +52,27 @@ class Objective(models.Model):
 
 class SubObjective(models.Model):
     Objective_fk = models.ForeignKey(Objective, on_delete=models.CASCADE, related_name='sub_objective',
-                                     null=True, blank=True)
-    Sprint = models.ForeignKey(Sprint, on_delete=models.CASCADE, related_name='sprint_sub', null=True,
-                               blank=True)
+                                     null=True, blank=True, verbose_name='Objective')
 
-    objective = models.CharField(max_length=512, null=True, blank=True)
+    objective = models.CharField(max_length=512, null=True, blank=True, verbose_name='Key Result')
     completion = models.BooleanField(default=False, null=True, blank=True)
 
     def __str__(self):
+
         return f'{self.objective}'
+
+
+class Sprint(models.Model):
+    Quarter = models.ForeignKey(Quarter, on_delete=models.CASCADE, related_name='sprint', null=True, blank=True)
+    Brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True, blank=True)
+    SubObjective = models.ForeignKey(SubObjective, on_delete=models.CASCADE, related_name='subobjective', null=True,
+                                     blank=True)
+
+    name = models.CharField(max_length=128, null=True, blank=True)
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+
+    result = models.BooleanField(default=False, null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.name} {self.start_date.day} {self.start_date.month} - {self.end_date.day} {self.end_date.month} '
