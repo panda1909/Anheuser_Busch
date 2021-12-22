@@ -116,7 +116,7 @@
                                             <thead>
                                             <tr>
                                                 <th>Key Result</th>
-                                                <th>Sprint <a href="{% url 'core:add-sprint' %}"> + </a> </th>
+                                                <th>Sprint <a href="{% url 'core:add-sprint' %}"><i class="ft-plus"></i> </a> </th>
                                                 <th>Target </th>
                                                 <th>Achieved</th>
                                             </tr>
@@ -124,7 +124,7 @@
                                             <tbody>
                                             {% for sprint in sprints %}
                                                 <tr>
-                                                    <td>{{ sprint.SubObjective.objective }}</td>
+                                                    <td><a href="{% url 'core:update-sub-objective' sprint.SubObjective.id %}"> {{ sprint.SubObjective.objective }} </a></td>
                                                     <td><a href="{% url 'core:update-sprint' sprint.pk %}"> {{ sprint.name }}</a> <br> {{ sprint.start_date}} to {{ sprint.end_date }}</td>
                                                     <td>{{sprint.SubObjective.objective}}</td>
                                                     <td><a href="#">{{ sprint.result }}</a></td>
