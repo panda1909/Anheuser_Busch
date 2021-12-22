@@ -13,7 +13,7 @@
     <meta name="keywords"
           content="admin template, Chameleon admin template, dashboard template, gradient admin template, responsive admin template, webapp, eCommerce dashboard, analytic dashboard">
     <meta name="author" content="ThemeSelect">
-    <title>Login</title>
+    <title>Sign Up</title>
     {% include 'css.html' %}
 </head>
 <!-- END: Head-->
@@ -46,23 +46,38 @@
                                 <div class="card-body">
                                     <form class="form-horizontal" method="POST" action="{% url 'account_signup' %}">
                                         {% csrf_token %}
-                                        {{ form.as_p }}
-{#                                        <fieldset class="form-group position-relative has-icon-left">#}
-{#                                            <label for="id_login">Username:</label>#}
-{#                                            <input type="text" name="login" placeholder="Username"#}
-{#                                                   class="form-control round"#}
-{#                                                   autocomplete="username" maxlength="150" required id="id_login">#}
-{##}
-{#                                        </fieldset>#}
-{#                                        <fieldset class="form-group position-relative has-icon-left">#}
-{#                                                                                        <label for="id_login">Password:</label>#}
-{##}
-{#                                            <input type="password" name="password" class="form-control round"#}
-{#                                                   placeholder="Password" autocomplete="current-password" required#}
-{#                                                   id="id_password">#}
-{##}
-{##}
-{#                                        </fieldset>#}
+
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <label for="id_login">Username:</label>
+                                            <input type="text" name="username" class="form-control round"
+                                                   placeholder="Username" autocomplete="username" minlength="1"
+                                                   maxlength="150" required id="id_username">
+
+
+                                        </fieldset>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <label for="id_login">Email:</label>
+
+                                            <input type="email" name="email" class="form-control round"
+                                                   placeholder="E-mail address" required autocomplete="email"
+                                                   id="id_email">
+
+                                        </fieldset>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <label for="id_password1">Password:</label>
+                                            <input type="password" name="password1" class="form-control round"
+                                                   placeholder="Password"
+                                                   autocomplete="new-password" required id="id_password1">
+
+                                        </fieldset>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <label for="id_password2">Password (again):</label>
+                                            <input type="password" name="password2" class="form-control round"
+                                                   placeholder="Password (again)"
+                                                   required id="id_password2">
+
+
+                                        </fieldset>
 
                                         <div class="form-group text-center">
                                             <button type="submit"

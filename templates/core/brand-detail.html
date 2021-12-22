@@ -37,7 +37,7 @@
                                                 <td>{{ obj.name }}</td>
                                                 <td>{{ obj.get_current_sub_objective.Sprint.name }}</td>
                                                 <td>{{ obj.get_current_sub_objective.objective }}</td>
-                                                <td><a href="{% url 'core:update-brand' obj.pk %}">Edit</a></td>
+                                                <td><a href="{% url 'core:update-brand' obj.pk %}"><i style="font-size: 15px" class="ft-edit"></i> Edit</a></td>
 
                                             </tr>
 
@@ -51,6 +51,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
         </section>
         <section id="configuration">
             <div class="row">
@@ -71,6 +72,7 @@
                                             <tr>
                                                 <th>Objectives</th>
                                                 <th>Completion</th>
+                                                <th>Edit</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -78,7 +80,7 @@
                                                 <tr>
                                                     <td>{{ objective.objective }}</td>
                                                     <td>{{ objective.completion }}</td>
-                                                    <td><a href="{% url 'core:update-objective' objective.pk %}">Edit</a></td>
+                                                    <td><a href="{% url 'core:update-objective' objective.pk %}"><i style="font-size: 15px" class="ft-edit"></i> Edit</a></td>
 
                                                 </tr>
                                             {% endfor %}
