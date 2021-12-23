@@ -33,8 +33,18 @@
                                             <tr>
                                                 <td><a href="{% url 'core:brand-detail' obj.pk %}"> {{ obj.name }}</a>
                                                 </td>
-                                                <td>{{ obj.get_current_objective }}</td>
-                                                <td>{{ obj.get_current_objective.completion }} %</td>
+                                                <td>{% if obj.get_current_objective %}
+                                                        {{ obj.get_current_objective }}
+                                                    {% else %}
+                                                        ---
+                                                    {% endif %}
+                                                </td>
+                                                <td>{% if obj.get_current_objective %}
+                                                        {{ obj.get_current_objective.completion }} %
+                                                    {% else %}
+
+                                                    {% endif %}
+                                                </td>
 
                                             </tr>
                                         {% endfor %}
@@ -83,13 +93,7 @@
                 datasets: [{
                     label: 'Brand Reports',
                     data: {{data|safe}},
-                    backgroundColor: [
-                        'blue',
-                        'blue',
-                        'blue',
-                        'blue',
-
-                    ],
+                    backgroundColor: {{ colors|safe }},
                     borderWidth: 1
                 },
                 ]

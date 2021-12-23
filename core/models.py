@@ -19,17 +19,18 @@ class Brand(models.Model):
     def get_current_objective(self):
         curr = datetime.date.today()
         quarter = Quarter.objects.get(start_date__lt=curr, end_date__gt=curr)
-        objective = Objective.objects.filter(Quarter=quarter, Brand=self).first()
-        try:
-            if objective.completion:
-                return objective
-            else:
-                objective.completion = 0
-                return objective
-        except:
-            objective.completion = 0
-            return objective
 
+        objective = Objective.objects.filter(Quarter=quarter, Brand=self).first()
+        # try:
+        #     if objective.completion:
+        #         return objective
+        #     else:
+        #         objective.completion = 0
+        #         return objective
+        # except:
+        #     objective.completion = 0
+        #     return objective
+        return objective
     def get_current_sub_objective(self):
         curr = datetime.date.today()
         sprint = Sprint.objects.get(Brand=self, start_date__lt=curr, end_date__gt=curr)

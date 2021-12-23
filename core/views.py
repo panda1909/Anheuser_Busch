@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404, get_list_or_404
 from core.models import *
 from core.forms import *
 import datetime
+import random
 
 
 # Create your views here.
@@ -16,13 +17,19 @@ def home(request):
     brands = Brand.objects.all()
     labels = []
     data = []
+    colour = ["red", "blue", "green", "yellow", "purple", "orange", "black"]
+    rand_colours = [random.choice(colour) for i in range(brands.count())]
     for x in brands:
         labels.append(x.name)
-        data.append(x.get_current_objective().completion)
+        if x.get_current_objective():
+            data.append(x.get_current_objective().completion)
+        else:
+            data.append(0)
     context = {
         'obj': brands,
         'label': labels,
         'data': data,
+        'colors': rand_colours
     }
     return render(request, 'core/index.html', context)
 
@@ -43,6 +50,7 @@ def create_brand(request):
         form = BrandFrom(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('core:home')
     else:
         form = BrandFrom()
 
@@ -55,7 +63,6 @@ def view_brand(request, pk):
     quarter = get_object_or_404(Quarter, start_date__lt=curr, end_date__gt=curr)
     objectives = Objective.objects.filter(Brand=obj, Quarter=quarter)
     sub_objectives = SubObjective.objects.filter(Objective_fk__in=objectives)
-    print(sub_objectives)
     sprints = Sprint.objects.filter(Quarter=quarter, SubObjective__in=sub_objectives)
 
     context = {
@@ -85,6 +92,7 @@ def update_brand(request, pk):
             form = BrandFrom(request.POST, instance=obj)
             if form.is_valid():
                 form.save()
+                return redirect(f'core:brand-detail', pk=obj.pk)
         else:
             form = BrandFrom(instance=obj)
     else:
@@ -108,6 +116,7 @@ def add_objective(request):
         form = ObjectiveFrom(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('core:home')
     else:
         form = ObjectiveFrom
 
@@ -121,6 +130,7 @@ def update_objective(request, pk):
         form = ObjectiveFrom(request.POST, instance=obj)
         if form.is_valid():
             form.save()
+            return redirect('core:home')
     else:
         form = ObjectiveFrom(instance=obj)
 
@@ -133,6 +143,7 @@ def add_sprint(request):
         form = SprintForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('core:home')
     else:
         form = SprintForm
 
@@ -146,6 +157,7 @@ def update_sprint(request, pk):
         form = SprintForm(request.POST, instance=obj)
         if form.is_valid():
             form.save()
+            return redirect('core:home')
     else:
         form = SprintForm(instance=obj)
 
@@ -158,6 +170,7 @@ def add_sub_objective(request):
         form = SubObjectiveForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('core:home')
     else:
         form = SubObjectiveForm
 
@@ -171,6 +184,7 @@ def update_sub_objective(request, pk):
         form = SubObjectiveForm(request.POST, instance=obj)
         if form.is_valid():
             form.save()
+            return redirect('core:home')
     else:
         form = SubObjectiveForm(instance=obj)
 
