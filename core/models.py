@@ -20,7 +20,15 @@ class Brand(models.Model):
         curr = datetime.date.today()
         quarter = Quarter.objects.get(start_date__lt=curr, end_date__gt=curr)
         objective = Objective.objects.filter(Quarter=quarter, Brand=self).first()
-        return objective
+        try:
+            if objective.completion:
+                return objective
+            else:
+                objective.completion = 0
+                return objective
+        except:
+            objective.completion = 0
+            return objective
 
     def get_current_sub_objective(self):
         curr = datetime.date.today()

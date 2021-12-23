@@ -3,7 +3,8 @@
 {% load static %}
 
 
-{% block content %}
+{% block content %}'
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <div class="content-body">
         <!-- Zero configuration table -->
         <section id="configuration">
@@ -29,12 +30,13 @@
                                         </thead>
                                         <tbody>
                                         {% for obj in obj %}
-                                        <tr>
-                                            <td><a href="{% url 'core:brand-detail' obj.pk %}"> {{ obj.name }}</a></td>
-                                            <td>{{ obj.get_current_objective }}</td>
-                                            <td>{{ obj.get_current_objective.completion }} %</td>
+                                            <tr>
+                                                <td><a href="{% url 'core:brand-detail' obj.pk %}"> {{ obj.name }}</a>
+                                                </td>
+                                                <td>{{ obj.get_current_objective }}</td>
+                                                <td>{{ obj.get_current_objective.completion }} %</td>
 
-                                        </tr>
+                                            </tr>
                                         {% endfor %}
 
                                         </tbody>
@@ -44,10 +46,94 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Report</h4>
+                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body card-dashboard">
+                                <p>{% for data in data %}
+                                    {{ data }}
+                                {% endfor %}
+                                </p>
+                                <div class="table-responsive">
+                                    <div id="mydivon" style="display: block; height:300px; width:300px">
+                                        <canvas id="myChart" width="400" height="400"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
+
         <!--/ Zero configuration table -->
     </div>
+    <script>
+        var labels = {{label|safe}}
+            console.log(labels)
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {{label|safe}},
+                datasets: [{
+                    label: 'Brand Reports',
+                    data: {{data|safe}},
+                    backgroundColor: [
+                        'blue',
+                        'blue',
+                        'blue',
+                        'blue',
 
+                    ],
+                    borderWidth: 1
+                },
+                ]
+            },
+
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
+
+    {#    <script>#}
+    {#        var xValues =#}
+    {#        {{ label|safe }}#}
+    {#        var yValues = {{ data|safe }}#}
+    {##}
+    {#            new Chart("myChart", {#}
+    {#                type: "bar",#}
+    {#                data: {#}
+    {#                    labels: {{label|safe}},#}
+    {#                    datasets: [{#}
+    {#                        label: 'My First Dataset',#}
+    {#                        data: {{ data|safe }},#}
+    {#                        borderWidth: 1#}
+    {#                    }]#}
+    {#                },#}
+    {#                #}
+    {#            });#}
+    {#    </script>#}
+    {#    <script>#}
+    {#        const data = {#}
+    {#            labels: {{label|safe}},#}
+    {#            datasets: [{#}
+    {#                label: 'My First Dataset',#}
+    {#                data: {{ data|safe }},#}
+    {#                borderWidth: 1#}
+    {#            }]#}
+    {#        };#}
+    {#    </script>#}
 {% endblock %}

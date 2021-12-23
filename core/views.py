@@ -14,12 +14,23 @@ import datetime
 @login_required()
 def home(request):
     brands = Brand.objects.all()
-    return render(request, 'core/index.html', {'obj': brands})
+    labels = []
+    data = []
+    for x in brands:
+        labels.append(x.name)
+        data.append(x.get_current_objective().completion)
+    context = {
+        'obj': brands,
+        'label': labels,
+        'data': data,
+    }
+    return render(request, 'core/index.html', context)
 
 
 def brands(request):
     brands = Brand.objects.all()
     return render(request, 'core/brands.html', {'brands': brands})
+
 
 '''
 Brand CRUD operations
@@ -79,7 +90,6 @@ def update_brand(request, pk):
     else:
         return redirect('core:home')
 
-
     context = {
         'form': form,
     }
@@ -102,6 +112,7 @@ def add_objective(request):
         form = ObjectiveFrom
 
     return render(request, 'core/add_objective.html', {'form': form})
+
 
 @login_required()
 def update_objective(request, pk):
@@ -151,6 +162,7 @@ def add_sub_objective(request):
         form = SubObjectiveForm
 
     return render(request, 'core/add_subobjective.html', {'form': form})
+
 
 @login_required()
 def update_sub_objective(request, pk):

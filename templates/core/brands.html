@@ -16,8 +16,13 @@
 
                             <div class="carousel-inner" role="listbox">
                                 <div class="carousel-item active">
+                                    {% if brand.logo %}
                                     <img src="{{ brand.logo.url }}" class="d-block w-100"
                                          alt="First slide">
+                                    {% else %}
+                                    <img  class="d-block w-100"
+                                         alt="First slide">
+                                    {% endif %}
                                 </div>
 
                             </div>
